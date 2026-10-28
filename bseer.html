@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بصير | الحساس الذكي للأحذية - رؤية جديدة لكل خطوة</title>
+    <!-- استيراد الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --accent: #7f00ff;
+            --bg-dark: #070913;
+            --bg-card: rgba(18, 24, 48, 0.7);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* خلفية ضوئية متحركة */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(127, 0, 255, 0.08) 0%, transparent 40%);
+        }
+
+        /* شريط التنقل */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(7, 9, 19, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        /* القسم الرئيسي (Hero) */
+        .hero {
+            padding: 180px 5% 100px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 30%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #070913;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-primary:hover, .btn-outline:hover {
+            transform: translateY(-3px);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* عرض بصري للحذاء / التكنولوجيا */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .device-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .device-icon-glow {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(127, 0, 255, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            color: var(--primary);
+            position: relative;
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.4); }
+            70% { box-shadow: 0 0 0 25px rgba(0, 242, 254, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+        }
+
+        /* الأقسام العامة */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* شبكة المميزات */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.15);
+        }
+
+        .feature-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: var(--text-muted);
+        }
+
+        /* المحاكي التفاعلي */
+        .simulator-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(20px);
+        }
+
+        .simulator-display {
+            background: #04060c;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .radar-status {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .slider-group label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* الأسعار */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .price-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, var(--bg-card) 100%);
+            transform: scale(1.03);
+        }
+
+        .price-card .tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .price-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .price-card ul {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: right;
+        }
+
+        .price-card ul li {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-card ul li i {
+            color: var(--primary);
+        }
+
+        /* لوحة التحكم الشخصية لإعداد الحقوق */
+        .creator-panel {
+            background: rgba(127, 0, 255, 0.08);
+            border: 1px dashed rgba(127, 0, 255, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 40px auto 0;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .creator-panel input {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: 70%;
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 1rem;
+        }
+
+        /* الفوتر */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 50px 5% 30px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 140px;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            nav ul {
+                display: none;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <!-- شريط التنقل العلوي -->
+    <header>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-shoe-prints"></i>
+            <span id="brandNameDisplay">بصير | BSEER</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#simulator">المحاكي</a></li>
+                <li><a href="#pricing">الباقات</a></li>
+            </ul>
+        </nav>
+        <a href="#pricing" class="nav-btn">اطلب الحساس الآن</a>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>رؤية جديدة لكل خطوة.. أمان واستقلالية تامة 👟</h1>
+            <p>حساس "بصير" الذكي للأحذية يمنح المكفوفين وضعاف البصر عيوناً استشعارية دقيقة تكتشف العقبات وتوجههم بأمان بكل ثقة وسهولة.</p>
+            <div class="hero-btns">
+                <a href="#pricing" class="btn-primary">
+                    <i class="fa-solid fa-cart-shopping"></i> اطلب جهازك اليوم
+                </a>
+                <a href="#simulator" class="btn-outline">
+                    <i class="fa-solid fa-play"></i> جرب المحاكي
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="device-card">
+                <div class="device-icon-glow">
+                    <i class="fa-solid fa-radar"></i>
+                </div>
+                <h3 style="margin-bottom: 10px;">حساس بصير - الإصدار الرياضي</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">خفيف للغاية، مقاوم للماء، ومتوافق مع كافة أنواع الأحذية الرياضية والرسمية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- المميزات -->
+    <section id="features">
+        <div class="section-title">
+            <h2>تقنية متطورة بين أقدامك</h2>
+            <p>مصمم بعناية فائقة لضمان أقصى درجات الأمان والراحة في التنقل اليومي.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fa-solid fa-wave-square"></i>
+                <h3>استشعار ذكي دقيق</h3>
+                <p>يكشف العوائق والحفر والجدران المرتفعة لمسافة تصل إلى مترين بدقة استجابة فورية.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>تنبيهات مزدوجة</h3>
+                <p>اهتزازات ذكية واضحة في الحذاء مع تنبيهات صوتية لطيفة عبر سماعة الأذن المتوافقة.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>مقاوم للماء والصدمات</h3>
+                <p>هيكل متين مصمم ليتحمل ظروف الطقس المختلفة والأمطار والأتربة بكفاءة تامة.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fa-solid fa-battery-full"></i>
+                <h3>بطارية تدوم طويلاً</h3>
+                <p>شحن سريع عبر منفذ Type-C يكفي لعمل متواصل يدوم لأيام عديدة بكل اعتمادية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- المحاكي التفاعلي -->
+    <section id="simulator">
+        <div class="section-title">
+            <h2>جرّب استجابة الحساس الآن</h2>
+            <p>حرر مؤشر المسافة أدناه وشاهد كيف يتفاعل الحساس مع العوائق الوهمية في الطريق.</p>
+        </div>
+        <div class="simulator-container">
+            <div class="simulator-display">
+                <div class="radar-status" id="radarStatusText" style="color: var(--primary);">الطريق آمن وممهد أمامك</div>
+                <p id="radarSubText" style="color: var(--text-muted);">المسافة الحالية للعائق: 2.0 متر</p>
+            </div>
+            <div class="slider-group">
+                <label for="distanceSlider">قرب مسافة العائق (من 0 إلى 2 متر):</label>
+                <input type="range" id="distanceSlider" min="0.1" max="2.0" step="0.1" value="2.0">
+            </div>
+        </div>
+    </section>
+
+    <!-- الباقات والأسعار -->
+    <section id="pricing">
+        <div class="section-title">
+            <h2>اختر الباقة المناسبة لك</h2>
+            <p>استثمر في أمانك وثقتك اليوم مع ضمان شامل وتوصيل مجاني لكافة المناطق.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>الباقة الأساسية</h3>
+                <div class="price">٢٩٩ <span>ريال</span></div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> حساس بصير الفردي</li>
+                    <li><i class="fa-solid fa-check"></i> شاحن سريع Type-C</li>
+                    <li><i class="fa-solid fa-check"></i> ضمان لمدة سنة كاملة</li>
+                </ul>
+                <button class="btn-outline" style="width: 100%; justify-content: center;" onclick="alert('تم اختيار الباقة الأساسية بنجاح! سيتم تحويلك لصفحة الدفع.')">اختر الباقة</button>
+            </div>
+            <div class="price-card featured">
+                <div class="tag">الأكثر طلباً</div>
+                <h3>الباقة المزدوجة</h3>
+                <div class="price">٤٩٩ <span>ريال</span></div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> حساسان (للقدمين معاً لتغطية كاملة)</li>
+                    <li><i class="fa-solid fa-check"></i> سماعة أذن لاسلكية هدية</li>
+                    <li><i class="fa-solid fa-check"></i> شحن مجاني سريع</li>
+                    <li><i class="fa-solid fa-check"></i> ضمان ذهبي استبدال فوري</li>
+                </ul>
+                <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="alert('تم اختيار الباقة المزدوجة بنجاح! سيتم تحويلك لصفحة الدفع.')">اطلب الباقة المزدوجة</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- لوحة تخصيص الحقوق الشخصية -->
+    <div class="creator-panel">
+        <h3 style="font-size: 1.2rem; margin-bottom: 55x;"><i class="fa-solid fa-user-gear"></i> إعدادات المالك / المصمم</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">اكتب اسمك أو اسم مشروعك ليظهر بصفته الصانع والمالك للموقع:</p>
+        <input type="text" id="creatorNameInput" placeholder="اكتب اسمك هنا..." value="متجر بصير الذكي">
+        <button class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;" onclick="updateCreatorName()">تحديث الاسم</button>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fa-solid fa-shoe-prints"></i>
+                <span id="footerBrandName">بصير | BSEER</span>
+            </div>
+            <p>جميع الحقوق محفوظة © 2026 - تم التطوير والتصميم بواسطة <span id="ownerSignature" style="color: var(--primary); font-weight: 700;">متجر بصير الذكي</span></p>
+        </div>
+    </footer>
+
+    <!-- سكربت تفاعل المحاكي وتحديث الحقوق -->
+    <script>
+        const slider = document.getElementById('distanceSlider');
+        const statusText = document.getElementById('radarStatusText');
+        const subText = document.getElementById('radarSubText');
+
+        slider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            subText.textContent = `المسافة الحالية للعائق: ${val.toFixed(1)} متر`;
+
+            if (val <= 0.5) {
+                statusText.textContent = "⚠️ خطر! عائق قريب جداً (تنبيه اهتزازي قوي)";
+                statusText.style.color = "#ff4d4d";
+            } else if (val <= 1.2) {
+                statusText.textContent = "⚡ تنبيه: يوجد عائق متوسط المدى أمريك";
+                statusText.style.color = "#ffa500";
+            } else {
+                statusText.textContent = "✅ الطريق آمن وممهد أمامك";
+                statusText.style.color = "var(--primary)";
+            }
+        });
+
+        function updateCreatorName() {
+            const nameInput = document.getElementById('creatorNameInput').value.trim();
+            if(nameInput) {
+                document.getElementById('brandNameDisplay').textContent = nameInput;
+                document.getElementById('footerBrandName').textContent = nameInput;
+                document.getElementById('ownerSignature').textContent = nameInput;
+                alert("تم تحديث اسم المالك/المصمم بنجاح في الموقع!");
+            }
+        }
+    </script>
+</body>
+</html>
